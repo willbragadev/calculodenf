@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculadora de Nota Fiscal</title>
+  <style>
+      body {
+      font-family: Calibri, sans-serif;
+      background-color: black;
+      margin: 0;
+      padding: 0;
+    }
+    
+    h1 {
+      text-align: center;
+      color: #fff;
+    }
+
+    form {
+      width: 300px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    button,
+    input[type="reset"] {
+      width: calc(100% - 20px);
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+         }
+
+    button,
+    input[type="reset"] {
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover,
+    input[type="reset"]:hover {
+      background-color: #0056b3;
+    }
+
+    #notaFiscalResultado {
+      width: 300px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      
+      display: none;
+    }
+
+    #notaFiscalResultado h2 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    #notaFiscalResultado p {
+      margin-bottom: 5px;
+      color: #555;
+    }
+  </style>
+</head>
+<body><center>
+  <h1>Calculadora de NF</h1>
+  
+  <form id="notaFiscalForm">
+    <label for="nomeCliente">Nome do Cliente:</label>
+    <input type="text" id="nomeCliente"><br><br>
+    
+    <label for="valorServico">Valor do Serviço:</label>
+    <input type="number" id="valorServico"><br><br>
+    
+    <label for="cidade">Qual sua cidade?</label>
+    <select id="cidade" name="cidade" form="notaFiscalForm">
+	 <option value="Rio de Janeiro">Rio de Janeiro</option>
+      <option value="São Paulo">São Paulo</option>
+      <option value="Minas Gerais">Minas Gerais</option>
+      <option value="Espirito Santo">Espirito Santo</option>
+    </select>
+    <br>
+	<br>
+    <button type="button" onclick="calcularNotaFiscal()">Calcular</button>
+    <input type="reset" value="Limpar campos">
+  </form>
+  
+  <div id="notaFiscalResultado" style="display: none;">
+    <h2>Nota Fiscal: </h2>
+    <p id="cliente"></p>
+    <p id="servico"></p>
+    <p id="impostos"></p>
+    <p id="total"></p>
+  </div>
+</center>
+  <script>
+  
+    function calcularNotaFiscal() {
+      const nomeCliente = document.getElementById("nomeCliente").value;
+      const valorServico = parseFloat(document.getElementById("valorServico").value);
+      const cidade = document.getElementById("cidade").value;
+
+      let imposto = 0;
+      if (cidade === "Rio de Janeiro") {
+        imposto = valorServico * 0.07;
+      } else if (cidade === "São Paulo") {
+        imposto = valorServico * 0.05; 
+      } else if (cidade === "Minas Gerais") {
+        imposto = valorServico * 0.06; 
+      } else if (cidade === "Espirito Santo") {
+        imposto = valorServico * 0.04; 
+      } 
+	  
+      const total = valorServico + imposto;
+
+	  document.getElementById("cliente").innerHTML = `<strong>Cliente:</strong> ${nomeCliente}`;
+      document.getElementById("servico").innerHTML = `<strong>Valor do Serviço:</strong> R$ ${valorServico.toFixed(2)}`;
+      document.getElementById("impostos").innerHTML = `<strong>Impostos:</strong> R$ ${imposto.toFixed(2)}`;
+      document.getElementById("total").innerHTML = `<strong>Total:</strong> R$ ${total.toFixed(2)}`;
+
+      document.getElementById("notaFiscalResultado").style.display = "block";
+    }
+	
+	
+	
+	//Desenvolvidor por Wiliam Braga.
+	
+  </script>
+</body>
+</html>
